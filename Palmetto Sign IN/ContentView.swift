@@ -21,7 +21,7 @@ struct ContentView: View {
     @State private var opacity = 1.0
     
     @State var showSettings = false
-    @State var settingsPassword = "1234" // This is is the password to get into the settings. Should be only numbers.
+    @State var settingsPassword = "1111" // This is is the password to get into the settings. Should be only numbers.
     @State var settingsPasswordText = ""
     @State var showSettingsAlert = false
     
@@ -34,32 +34,39 @@ struct ContentView: View {
                 
                 Color.lightGray.ignoresSafeArea()
                 
-                
+                VStack {
+                    HStack {
+                        Spacer()
+                        Image(systemName: "gearshape")
+                            .imageScale(.large)
+                            .padding()
+                            .onTapGesture() {
+                                showSettingsAlert = true
+                            }
+                            .alert("Settings Password", isPresented: $showSettingsAlert) {
+                                TextField("Enter your name", text: $settingsPasswordText)
+                                    .keyboardType(.numberPad)
+                                Button("OK") {
+                                    if settingsPassword == settingsPasswordText {
+                                        showSettings = true
+                                        settingsPasswordText = ""
+                                    } else {
+                                        
+                                    }
+                                }
+                            }
+                            .sheet(isPresented: $showSettings, content: {
+                                SettingsView()
+                            })
+                    }
+                    Spacer()
+                }
                 
                 VStack(spacing: 0){
                     Text("iCarolina Lab")
                         .font(.system(size: 80.0, weight: .bold))
                         .padding(.bottom, 150)
-                    Text("version 1.0")
-                        .font(.caption)
-                        .onTapGesture() {
-                            showSettingsAlert = true
-                        }
-                        .alert("Settings Password", isPresented: $showSettingsAlert) {
-                            TextField("Enter your name", text: $settingsPasswordText)
-                                .keyboardType(.numberPad)
-                            Button("OK") {
-                                if settingsPassword == settingsPasswordText {
-                                    showSettings = true
-                                    settingsPasswordText = ""
-                                } else {
-                                    
-                                }
-                            }
-                        }
-                        .sheet(isPresented: $showSettings, content: {
-                            SettingsView()
-                        })
+                    
                     Button(action: {
                         showRegisterView.toggle()
 //                        withAnimation {

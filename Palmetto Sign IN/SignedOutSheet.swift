@@ -14,17 +14,37 @@ struct SignedOutSheet: View {
     
     var body: some View {
         VStack {
-            Text("Hi")
-            Text(formattedTime(time: dataService.elapsedTime))
+            Image("signOut")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 200)
+            Text("Signed Out")
+                .font(.largeTitle)
+                .foregroundColor(Color(red: 143 / 255, green: 17 / 255, blue: 25 / 255))
+            Text("\(dataService.currentPerson?.firstName ?? "Hi"), you signed out at \(formattedTime(date: Date())).")
+                .font(.title)
+            Text("The total time this session is:")
+                .font(.title)
+            Text("\(formattedElapsedTime(time: dataService.elapsedTime))")
+                .font(.system(size: 60))
             Button("OK") {
+                dismiss()
+                showSignOut = false
+            }
+            .buttonStyle(BorderedProminentButtonStyle())
+            .tint(.green)
+        }
+        .onAppear() {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                 dismiss()
                 showSignOut = false
             }
         }
         
+        
     }
     
-    func formattedTime(time: String) -> String {
+    func formattedElapsedTime(time: String) -> String {
         guard let time = Double(time) else { return "error "}
         let timeInterval: TimeInterval = abs(time)
         
@@ -38,6 +58,18 @@ struct SignedOutSheet: View {
             return "error"
         }
         
+    }
+    
+    func formattedTime(date: Date) -> String {
+        
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
+        formatter.locale = Locale.current
+        
+        let formattedString = formatter.string(from: date)
+        return formattedString
+       
     }
 }
 //

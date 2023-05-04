@@ -16,6 +16,7 @@ struct Register: View {
     @FocusState private var isFocused: Bool
     
     @EnvironmentObject var dataService: DataService
+    @AppStorage("campus") var campus: String = "Campus"
 
 
     var body: some View {
@@ -105,7 +106,7 @@ struct Register: View {
                 }
                 .padding(30)
                 .padding(.top, 200)
-                Text("Walterboro, East Campus")
+                Text(campus)
                     .font(.system(size: 40.0))
 
                 Text(Date.now.formatted(date:.long, time: .omitted))

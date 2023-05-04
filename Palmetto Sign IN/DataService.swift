@@ -80,6 +80,7 @@ class DataService : ObservableObject {
     func signIn(person: Person) {
         //people.append(person)
         //saveData()
+        self.currentPerson = person
         var campus = "none"
         if let udCampus = UserDefaults.standard.string(forKey: "campus") {
             campus = udCampus
@@ -100,6 +101,7 @@ class DataService : ObservableObject {
     func signOut(person: Person) {
         //people.append(person)
         //saveData()
+        self.currentPerson = person
         var campus = "none"
         if let udCampus = UserDefaults.standard.string(forKey: "campus") {
             campus = udCampus
@@ -114,6 +116,7 @@ class DataService : ObservableObject {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             DispatchQueue.main.async {
                 print("Signed Out")
+                
                 //print(String(data: data ?? Data(), encoding: .utf8))
             }
             

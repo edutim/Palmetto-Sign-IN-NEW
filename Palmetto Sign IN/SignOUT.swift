@@ -13,13 +13,16 @@ struct SignOUT: View {
     @EnvironmentObject var dataService: DataService
     
     @State private var showSignOutSheet = false
+    
+    @AppStorage("campus") var campus: String = "Campus"
+    
     var body: some View {
         
         ZStack {
             Color.lightGray.ignoresSafeArea()
             
             VStack {
-                
+                Spacer()
                 
                 VStack(alignment: .leading) {
                     
@@ -34,7 +37,7 @@ struct SignOUT: View {
                         .textCase(.lowercase)
                         .autocapitalization(.none)
                         .autocorrectionDisabled()
-                        
+                    
                     
                     HStack {
                         
@@ -45,12 +48,12 @@ struct SignOUT: View {
                         }, label: {
                             Text("Cancel")
                                 .padding(40)
-                                //.frame(maxWidth: .infinity)
+                            //.frame(maxWidth: .infinity)
                                 .background(Color.darkRed.cornerRadius(10))
                                 .foregroundColor(.white).fontWeight(.bold)
                                 .font(.largeTitle)
                                 .shadow(radius: 10)
-                    })
+                        })
                         
                         Button(action: {
                             
@@ -73,43 +76,43 @@ struct SignOUT: View {
                                 
                             }
                             
-                                
+                            
                         }, label: {
                             Text("Sign Out")
-                                
+                            
                                 .padding(40)
                                 .frame(maxWidth: .infinity)
                                 .background(Color.darkGreen.cornerRadius(10))
                                 .foregroundColor(.white).fontWeight(.bold)
                                 .font(.largeTitle)
                                 .shadow(radius: 10)
-                    })
-                    
+                        })
+                        
                     }
                     .padding(.vertical, 20)
-                    Spacer()
-                 
-                       
+                    
+                   
+                    
                     
                 }
                 .padding(30)
-                .padding(.top, 200)
-                Text("Walterboro, East Campus")
+                
+                Spacer()
+                Text(campus)
                     .font(.system(size: 40.0))
-
+                
                 Text(Date.now.formatted(date:.long, time: .omitted))
                     .font(.largeTitle)
                     .foregroundColor(.gray)
-
-
-
-                Spacer()
+                
+                
+                
             }
         }
         .sheet(isPresented: $showSignOutSheet) {
             SignedOutSheet(showSignOut: $showSignOut)
         }
-
+        
     }
     func emailIsAppropriate() -> Bool {
         // validate email
