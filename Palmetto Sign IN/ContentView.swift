@@ -25,6 +25,8 @@ struct ContentView: View {
     @State var settingsPasswordText = ""
     @State var showSettingsAlert = false
     
+    @AppStorage("campus") var campus: String = "Campus"
+    
     var body: some View {
             
             
@@ -98,7 +100,7 @@ struct ContentView: View {
                         
                     })
                     .padding(.bottom, 200)
-                    Text("Walterboro, East Campus")
+                    Text(campus)
                         .font(.system(size: 40.0))
                     
                     Text(Date.now.formatted(date:.long, time: .omitted))

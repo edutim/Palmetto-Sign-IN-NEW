@@ -13,6 +13,8 @@ struct SettingsView: View {
     @State var serverTestStatus = " "
     @Environment(\.dismiss) private var dismiss
     
+    @AppStorage("campus") var campus: String = "Campus"
+    
     var body: some View {
         Text("Enter the server address")
             .font(.largeTitle)
@@ -57,6 +59,7 @@ struct SettingsView: View {
                     Text(serverTestStatus)
                 }
                 
+                TextField("Enter Campus Name", text: $campus)
             }
             .padding()
                     

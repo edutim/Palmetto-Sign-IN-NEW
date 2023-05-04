@@ -11,6 +11,8 @@ import SwiftUI
 class DataService : ObservableObject {
     static var shared = DataService()
     
+    
+    
     var serverAddress = ""
     
     @Published var currentPerson: Person? = nil
