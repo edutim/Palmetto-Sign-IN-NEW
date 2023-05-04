@@ -67,7 +67,7 @@ struct SignOUT: View {
                                     } else {
                                         print("User Found")
                                         //Person found so create a new person with the ReturnedPerson object
-                                        let newPerson = Person(firstName: foundPerson.firstName, lastName: foundPerson.lastName, email: foundPerson.email, role: foundPerson.role, reasonForVisit: foundPerson.reasonForVisit, date: Date())
+                                        let newPerson = Person(firstName: foundPerson.firstName, lastName: foundPerson.lastName, email: foundPerson.email, username: foundPerson.username, role: foundPerson.role, reasonForVisit: foundPerson.reasonForVisit, date: Date())
                                         
                                         await dataService.signOut(person: newPerson)
                                         showSignOutSheet = true

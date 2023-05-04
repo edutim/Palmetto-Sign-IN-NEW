@@ -66,14 +66,14 @@ struct Register: View {
                                     if foundPerson.email == "" {
                                         print("No user found")
                                         //No person was found so create a new Person with only an email address
-                                        let newPerson = Person(firstName: "", lastName: "", email: email, role: "", reasonForVisit: "", date: Date())
+                                        let newPerson = Person(firstName: "", lastName: "", email: email, username: "", role: "", reasonForVisit: "", date: Date())
                                         dataService.currentPerson = newPerson
                                         showNewScreen = false
                                         showSignINView = true
                                     } else {
                                         print("User Found")
                                         //Person found so create a new person with the ReturnedPerson object
-                                        let newPerson = Person(firstName: person?.firstName ?? "", lastName: person?.lastName ?? "", email: person?.email ?? "", role: person?.role ?? "", reasonForVisit: person?.reasonForVisit ?? "", date: Date())
+                                        let newPerson = Person(firstName: person?.firstName ?? "", lastName: person?.lastName ?? "", email: person?.email ?? "", username: person?.username ?? "", role: person?.role ?? "", reasonForVisit: person?.reasonForVisit ?? "", date: Date())
                                         dataService.currentPerson = newPerson
                                         showNewScreen = false
                                         showSignINView = true

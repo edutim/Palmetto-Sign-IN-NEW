@@ -104,7 +104,7 @@ struct SignIN: View {
                         
                         
                         
-                        let newPerson = Person(firstName: firstName, lastName: lastName, email: email, role: roleSelection, reasonForVisit: reason, date: Date())
+                        let newPerson = Person(firstName: firstName, lastName: lastName, email: email, username: "", role: roleSelection, reasonForVisit: reason, date: Date())
                         
                         dataService.signIn(person: newPerson)
                         //dismiss
@@ -145,7 +145,7 @@ struct SignIN: View {
                 email = currentPerson.email
                 firstName = currentPerson.firstName
                 lastName = currentPerson.lastName
-                reason = currentPerson.reasonForVisit
+                
                 roleSelection = currentPerson.role
             }
             UISegmentedControl.appearance().setTitleTextAttributes([.font : UIFont.preferredFont(forTextStyle: .headline)], for: .highlighted)

@@ -12,6 +12,7 @@ struct Person: Codable {
     var firstName: String
     var lastName: String
     var email: String
+    var username: String
     var role: String
     var reasonForVisit: String
     var date: Date
@@ -21,6 +22,7 @@ struct ReturnedPerson: Codable {
     var firstName: String
     var lastName: String
     var email: String
+    var username: String
     var role: String
     var reasonForVisit: String
 }

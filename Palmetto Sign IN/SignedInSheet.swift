@@ -28,6 +28,7 @@ struct SignedInSheet: View {
             Button("OK") {
                 dismiss()
                 showSignIn = false
+                showNewScreen = false
             }
             .buttonStyle(BorderedProminentButtonStyle())
             .tint(.green)
