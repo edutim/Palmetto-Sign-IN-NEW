@@ -12,6 +12,7 @@ struct Palmetto_Sign_INApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(DataService.shared)
         }
     }
 }

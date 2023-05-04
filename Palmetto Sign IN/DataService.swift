@@ -11,7 +11,13 @@ import SwiftUI
 class DataService : ObservableObject {
     static var shared = DataService()
     
+    
+    
     var serverAddress = ""
+    
+    @Published var currentPerson: Person? = nil
+    
+    @Published var elapsedTime: String = ""
     
     @Published var people = [Person]() {
         didSet {
@@ -57,7 +63,7 @@ class DataService : ObservableObject {
         //people.append(person)
         //saveData()
         
-        let rawString = "\(serverAddress)/newUser/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)"
+        let rawString = "\(serverAddress)/newUser/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)/\(UserDefaults.standard.string(forKey: "campus"))"
         let urlEncoded = rawString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         let url = URL(string: urlEncoded ?? "\(serverAddress)")
         //let url = URL(string: "\(serverAddress)/newUser/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)")
@@ -69,6 +75,77 @@ class DataService : ObservableObject {
         }
         task.resume()
         
+    }
+    
+    func signIn(person: Person) {
+        //people.append(person)
+        //saveData()
+        self.currentPerson = person
+        var campus = "none"
+        if let udCampus = UserDefaults.standard.string(forKey: "campus") {
+            campus = udCampus
+        }
+        let rawString = "\(serverAddress)/signIn/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)/\(campus)"
+        let urlEncoded = rawString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let url = URL(string: urlEncoded ?? "\(serverAddress)")
+        //let url = URL(string: "\(serverAddress)/newUser/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)")
+        
+        var request = URLRequest(url: url!)
+        request.httpMethod = "POST"
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            print(String(data: data ?? Data(), encoding: .utf8))
+        }
+        task.resume()
+    }
+    
+    func signOut(person: Person) {
+        //people.append(person)
+        //saveData()
+        self.currentPerson = person
+        var campus = "none"
+        if let udCampus = UserDefaults.standard.string(forKey: "campus") {
+            campus = udCampus
+        }
+        let rawString = "\(serverAddress)/signOut/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)/\(campus)"
+        let urlEncoded = rawString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let url = URL(string: urlEncoded ?? "\(serverAddress)")
+        //let url = URL(string: "\(serverAddress)/newUser/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)")
+        
+        var request = URLRequest(url: url!)
+        request.httpMethod = "POST"
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            DispatchQueue.main.async {
+                print("Signed Out")
+                
+                //print(String(data: data ?? Data(), encoding: .utf8))
+            }
+            
+        }
+        task.resume()
+    }
+    
+    
+    func signOut(person: Person) async {
+        var campus = "none"
+        if let udCampus = UserDefaults.standard.string(forKey: "campus") {
+            campus = udCampus
+        }
+        let rawString = "\(serverAddress)/signOut/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)/\(campus)"
+        let urlEncoded = rawString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        guard let url = URL(string: urlEncoded ?? "\(serverAddress)") else { return }
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        //request.httpMethod = "POST"
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let timeAsString = String(data: data, encoding: .utf8) else { return}
+            DispatchQueue.main.async {
+                self.elapsedTime = timeAsString
+            }
+            
+        } catch {
+            print("Request failed with error: \(error)")
+        }
     }
     
     func findPersonWith(email: String) async throws -> ReturnedPerson? {

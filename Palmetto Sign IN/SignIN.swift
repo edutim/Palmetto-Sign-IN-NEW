@@ -9,38 +9,29 @@ import SwiftUI
 
 
 struct SignIN: View {
-    //@Binding var showNewScreen: Bool
+    @Binding var showNewScreen: Bool
+    let person: Person? = nil
     
     @State private var email: String = ""
     @State private var firstName: String = ""
     @State private var lastName:  String = ""
     @State private var reason:    String = ""
     
-    @State private var selection = 0
+    @State private var roleSelection = "Student"
     @State private var roleOptions = ["Student", "Faculty", "Staff", "Community"]
-    init() {
-        //this changes the "thumb" that selects between items
-        //UISegmentedControl.appearance().selectedSegmentTintColor = .blue
-        //and this changes the color for the whole "bar" background
-        //UISegmentedControl.appearance().backgroundColor = .purple
-
-        //this will change the font size
-
-        UISegmentedControl.appearance().setTitleTextAttributes([.font : UIFont.preferredFont(forTextStyle: .headline)], for: .highlighted)
-        UISegmentedControl.appearance().setTitleTextAttributes([.font : UIFont.preferredFont(forTextStyle: .largeTitle)], for: .normal)
-
-        //these lines change the text color for various states
-        //UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor : UIColor.blue], for: .selected)
-        //UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor : UIColor.blue], for: .normal)
-    }
+    
+    @State var showAlert = false
+    @State private var showSignInSheet = false
+    
+    @EnvironmentObject var dataService: DataService
+    @AppStorage("campus") var campus: String = "Campus"
     
     var body: some View {
         ZStack {
             Color.lightGray.ignoresSafeArea()
             VStack {
                 
-                Text("iCarolina Lab")
-                    .font(.system(size: 80.0, weight: .bold))
+                
                 //Spacer()
                 
                 TextField("Email address", text: $email)
@@ -70,25 +61,28 @@ struct SignIN: View {
                     .background(Color.gray.opacity(0.3).cornerRadius(10))
                     .padding(.bottom, 20)
                 
-                Picker("",selection: $selection) {
-                    
-                    Text("Student").tag(0)
-                    Text("Faculty").tag(1)
-                    Text("Staff").tag(2)
-                    Text("Community").tag(3)
-                }.pickerStyle(SegmentedPickerStyle())
-                    .frame(height: 65)
+                Picker("", selection: $roleSelection) {
+                    ForEach(roleOptions, id: \.self) {
+                        Text($0)
+                        
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .frame(height: 65)
+                .background(.gray).cornerRadius(10)
+                .font(.largeTitle)
                 
-                    .background(.gray).cornerRadius(10)
-                
-                Text("Role selected: \(roleOptions[selection])")
+                Text("Role selected: \(roleSelection)")
                     .font(.largeTitle)
                 
                 
                 HStack {
                     
                     Button(action: {
-                        
+                        //dismiss
+                        withAnimation {
+                            showNewScreen = false
+                        }
                         
                     }, label: {
                         Text("Cancel")
@@ -102,7 +96,21 @@ struct SignIN: View {
                     
                     
                     Button(action: {
+                        // Check all fields for content
+                        if email == "" || firstName == "" || lastName == "" || reason == "" {
+                            showAlert = true
+                            return
+                        }
                         
+                        
+                        
+                        let newPerson = Person(firstName: firstName, lastName: lastName, email: email, username: "", role: roleSelection, reasonForVisit: reason, date: Date())
+                        
+                        dataService.signIn(person: newPerson)
+                        //dismiss
+                        withAnimation {
+                            showSignInSheet = true
+                        }
                         
                     }, label: {
                         Text("Sign In")
@@ -116,28 +124,46 @@ struct SignIN: View {
                     })
                     
                 }
-                    //.padding(30)
-                    .padding(.bottom, 200)
-                    Text("Walterboro, East Campus")
-                        .font(.system(size: 40.0))
-                    
-                    Text(Date.now.formatted(date:.long, time: .omitted))
-                        .font(.largeTitle)
-                        .foregroundColor(.gray)
-                    
+                //.padding(30)
+                Spacer()
+                Text(campus)
+                    .font(.system(size: 40.0))
+                
+                Text(Date.now.formatted(date:.long, time: .omitted))
+                    .font(.largeTitle)
+                    .foregroundColor(.gray)
+                
                 
                 
             }
-
-                    .padding(30)
- 
+            
+            .padding(30)
+            
+        }
+        .onAppear() {
+            if let currentPerson = dataService.currentPerson {
+                email = currentPerson.email
+                firstName = currentPerson.firstName
+                lastName = currentPerson.lastName
+                
+                roleSelection = currentPerson.role
+            }
+            UISegmentedControl.appearance().setTitleTextAttributes([.font : UIFont.preferredFont(forTextStyle: .headline)], for: .highlighted)
+            UISegmentedControl.appearance().setTitleTextAttributes([.font : UIFont.preferredFont(forTextStyle: .largeTitle)], for: .normal)
+        }
+        .alert("Please fill out each field.", isPresented: $showAlert) {
+            Button("OK", role: .cancel) {}
+        }
+        .sheet(isPresented: $showSignInSheet) {
+            SignedInSheet(showSignIn: $showSignInSheet, showNewScreen: $showNewScreen)
         }
     }
+    
 }
 
 struct NewUser_Previews: PreviewProvider {
     static var previews: some View {
-        SignIN()
+        SignIN(showNewScreen: .constant(true))
     }
 }
 

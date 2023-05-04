@@ -1,31 +1,28 @@
 //
-//  Register.swift
+//  SignOUT.swift
 //  Palmetto Sign IN
 //
-//  Created by Chris Maggio on 2/25/23.
+//  Created by Timothy Hart on 5/4/23.
 //
 
 import SwiftUI
 
-struct Register: View {
+struct SignOUT: View {
+    @Binding var showSignOut: Bool
     @State private var email: String = ""
-    
-    //@Environment(\.presentationMode) var presentationMode
-    @Binding var showNewScreen: Bool
-    @Binding var showSignINView: Bool
-    @FocusState private var isFocused: Bool
-    
     @EnvironmentObject var dataService: DataService
+    
+    @State private var showSignOutSheet = false
+    
     @AppStorage("campus") var campus: String = "Campus"
-
-
+    
     var body: some View {
         
         ZStack {
             Color.lightGray.ignoresSafeArea()
             
             VStack {
-                
+                Spacer()
                 
                 VStack(alignment: .leading) {
                     
@@ -33,7 +30,6 @@ struct Register: View {
                     
                     TextField("Enter email address", text: $email)
                         .padding()
-                        .focused($isFocused)
                         .keyboardType(.emailAddress)
                         .font(.system(size: 40.0))
                         .background(Color.gray.opacity(0.3).cornerRadius(10))
@@ -41,84 +37,82 @@ struct Register: View {
                         .textCase(.lowercase)
                         .autocapitalization(.none)
                         .autocorrectionDisabled()
-                        
+                    
                     
                     HStack {
                         
                         Button(action: {
                             //presentationMode.wrappedValue.dismiss()
-                            showNewScreen.toggle()
+                            showSignOut = false
                             
                         }, label: {
                             Text("Cancel")
                                 .padding(40)
-                                //.frame(maxWidth: .infinity)
+                            //.frame(maxWidth: .infinity)
                                 .background(Color.darkRed.cornerRadius(10))
                                 .foregroundColor(.white).fontWeight(.bold)
                                 .font(.largeTitle)
                                 .shadow(radius: 10)
-                    })
+                        })
                         
                         Button(action: {
+                            
                             Task {
                                 let person = try await dataService.findPersonWith(email: email)
                                 if let foundPerson = person {
                                     if foundPerson.email == "" {
                                         print("No user found")
                                         //No person was found so create a new Person with only an email address
-                                        let newPerson = Person(firstName: "", lastName: "", email: email, username: "", role: "", reasonForVisit: "", date: Date())
-                                        dataService.currentPerson = newPerson
-                                        showNewScreen = false
-                                        showSignINView = true
+                                        
                                     } else {
                                         print("User Found")
                                         //Person found so create a new person with the ReturnedPerson object
-                                        let newPerson = Person(firstName: person?.firstName ?? "", lastName: person?.lastName ?? "", email: person?.email ?? "", username: person?.username ?? "", role: person?.role ?? "", reasonForVisit: person?.reasonForVisit ?? "", date: Date())
-                                        dataService.currentPerson = newPerson
-                                        showNewScreen = false
-                                        showSignINView = true
+                                        let newPerson = Person(firstName: foundPerson.firstName, lastName: foundPerson.lastName, email: foundPerson.email, username: foundPerson.username, role: foundPerson.role, reasonForVisit: foundPerson.reasonForVisit, date: Date())
+                                        
+                                        await dataService.signOut(person: newPerson)
+                                        showSignOutSheet = true
                                     }
                                 }
                                 
                             }
-                            if emailIsAppropriate() {
-                                //showNewScreen.toggle()
-                                
-                            }
-                                
+                            
+                            
                         }, label: {
-                            Text("Sign In")
-                                
+                            Text("Sign Out")
+                            
                                 .padding(40)
                                 .frame(maxWidth: .infinity)
                                 .background(Color.darkGreen.cornerRadius(10))
                                 .foregroundColor(.white).fontWeight(.bold)
                                 .font(.largeTitle)
                                 .shadow(radius: 10)
-                    })
-                    
+                        })
+                        
                     }
                     .padding(.vertical, 20)
-                    Spacer()
-                 
-                       
+                    
+                   
+                    
                     
                 }
                 .padding(30)
-                .padding(.top, 200)
+                
+                Spacer()
                 Text(campus)
                     .font(.system(size: 40.0))
-
+                
                 Text(Date.now.formatted(date:.long, time: .omitted))
                     .font(.largeTitle)
                     .foregroundColor(.gray)
-
-
-
-                Spacer()
+                
+                
+                
             }
         }
-
+        .sheet(isPresented: $showSignOutSheet) {
+            SignedOutSheet(showSignOut: $showSignOut)
+        }
+        
     }
     func emailIsAppropriate() -> Bool {
         // validate email
@@ -127,15 +121,10 @@ struct Register: View {
         }
         return false
     }
-
 }
 
-struct Register_Previews: PreviewProvider {
+struct SignOUT_Previews: PreviewProvider {
     static var previews: some View {
-        Register(showNewScreen: .constant(true), showSignINView: .constant(false))
-        
-        
+        SignOUT(showSignOut: .constant(false))
     }
 }
-
-
