@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4AE869A42A040691004D7015 /* SignOUT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE869A32A040691004D7015 /* SignOUT.swift */; };
+		4AE869A62A040AAE004D7015 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE869A52A040AAE004D7015 /* SettingsView.swift */; };
+		4AE869AB2A042A1D004D7015 /* SignedOutSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE869AA2A042A1D004D7015 /* SignedOutSheet.swift */; };
 		94CBEC3E29A98CB200531660 /* Palmetto_Sign_INApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CBEC3D29A98CB200531660 /* Palmetto_Sign_INApp.swift */; };
 		94CBEC4029A98CB200531660 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CBEC3F29A98CB200531660 /* ContentView.swift */; };
 		94CBEC4229A98CB400531660 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CBEC4129A98CB400531660 /* Assets.xcassets */; };
@@ -19,6 +22,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4AE869A32A040691004D7015 /* SignOUT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOUT.swift; sourceTree = "<group>"; };
+		4AE869A52A040AAE004D7015 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		4AE869A72A040CA9004D7015 /* Palmetto-Sign-IN-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Palmetto-Sign-IN-Info.plist"; sourceTree = SOURCE_ROOT; };
+		4AE869AA2A042A1D004D7015 /* SignedOutSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedOutSheet.swift; sourceTree = "<group>"; };
 		94CBEC3A29A98CB200531660 /* Palmetto Sign IN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Palmetto Sign IN.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		94CBEC3D29A98CB200531660 /* Palmetto_Sign_INApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palmetto_Sign_INApp.swift; sourceTree = "<group>"; };
 		94CBEC3F29A98CB200531660 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -61,13 +68,17 @@
 		94CBEC3C29A98CB200531660 /* Palmetto Sign IN */ = {
 			isa = PBXGroup;
 			children = (
+				4AE869A72A040CA9004D7015 /* Palmetto-Sign-IN-Info.plist */,
 				94CBEC3D29A98CB200531660 /* Palmetto_Sign_INApp.swift */,
 				94CBEC3F29A98CB200531660 /* ContentView.swift */,
 				94CBEC4B29AA6A2400531660 /* Register.swift */,
 				94CBEC4F29AA985D00531660 /* SignIN.swift */,
+				4AE869A32A040691004D7015 /* SignOUT.swift */,
+				4AE869AA2A042A1D004D7015 /* SignedOutSheet.swift */,
 				94E819292A03F7F20044B9D4 /* Person.swift */,
 				94E8192B2A03F8000044B9D4 /* DataService.swift */,
 				94CBEC5129AAE00800531660 /* PickerSample.swift */,
+				4AE869A52A040AAE004D7015 /* SettingsView.swift */,
 				94CBEC4129A98CB400531660 /* Assets.xcassets */,
 				94CBEC4329A98CB400531660 /* Preview Content */,
 			);
@@ -153,7 +164,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				94E8192C2A03F8000044B9D4 /* DataService.swift in Sources */,
+				4AE869A42A040691004D7015 /* SignOUT.swift in Sources */,
 				94CBEC4C29AA6A2400531660 /* Register.swift in Sources */,
+				4AE869A62A040AAE004D7015 /* SettingsView.swift in Sources */,
+				4AE869AB2A042A1D004D7015 /* SignedOutSheet.swift in Sources */,
 				94CBEC5029AA985D00531660 /* SignIN.swift in Sources */,
 				94CBEC4029A98CB200531660 /* ContentView.swift in Sources */,
 				94CBEC5229AAE00800531660 /* PickerSample.swift in Sources */,
@@ -290,6 +304,7 @@
 				DEVELOPMENT_TEAM = GX85C6C27W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Palmetto-Sign-IN-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -319,6 +334,7 @@
 				DEVELOPMENT_TEAM = GX85C6C27W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Palmetto-Sign-IN-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

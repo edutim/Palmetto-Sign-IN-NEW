@@ -1,23 +1,18 @@
 //
-//  Register.swift
+//  SignOUT.swift
 //  Palmetto Sign IN
 //
-//  Created by Chris Maggio on 2/25/23.
+//  Created by Timothy Hart on 5/4/23.
 //
 
 import SwiftUI
 
-struct Register: View {
+struct SignOUT: View {
+    @Binding var showSignOut: Bool
     @State private var email: String = ""
-    
-    //@Environment(\.presentationMode) var presentationMode
-    @Binding var showNewScreen: Bool
-    @Binding var showSignINView: Bool
-    @FocusState private var isFocused: Bool
-    
     @EnvironmentObject var dataService: DataService
-
-
+    
+    @State private var showSignOutSheet = false
     var body: some View {
         
         ZStack {
@@ -32,7 +27,6 @@ struct Register: View {
                     
                     TextField("Enter email address", text: $email)
                         .padding()
-                        .focused($isFocused)
                         .keyboardType(.emailAddress)
                         .font(.system(size: 40.0))
                         .background(Color.gray.opacity(0.3).cornerRadius(10))
@@ -46,7 +40,7 @@ struct Register: View {
                         
                         Button(action: {
                             //presentationMode.wrappedValue.dismiss()
-                            showNewScreen.toggle()
+                            showSignOut = false
                             
                         }, label: {
                             Text("Cancel")
@@ -59,34 +53,29 @@ struct Register: View {
                     })
                         
                         Button(action: {
+                            
                             Task {
                                 let person = try await dataService.findPersonWith(email: email)
                                 if let foundPerson = person {
                                     if foundPerson.email == "" {
                                         print("No user found")
                                         //No person was found so create a new Person with only an email address
-                                        let newPerson = Person(firstName: "", lastName: "", email: email, role: "", reasonForVisit: "", date: Date())
-                                        dataService.currentPerson = newPerson
-                                        showNewScreen = false
-                                        showSignINView = true
+                                        
                                     } else {
                                         print("User Found")
                                         //Person found so create a new person with the ReturnedPerson object
-                                        let newPerson = Person(firstName: person?.firstName ?? "", lastName: person?.lastName ?? "", email: person?.email ?? "", role: person?.role ?? "", reasonForVisit: person?.reasonForVisit ?? "", date: Date())
-                                        dataService.currentPerson = newPerson
-                                        showNewScreen = false
-                                        showSignINView = true
+                                        let newPerson = Person(firstName: foundPerson.firstName, lastName: foundPerson.lastName, email: foundPerson.email, role: foundPerson.role, reasonForVisit: foundPerson.reasonForVisit, date: Date())
+                                        
+                                        await dataService.signOut(person: newPerson)
+                                        showSignOutSheet = true
                                     }
                                 }
                                 
                             }
-                            if emailIsAppropriate() {
-                                //showNewScreen.toggle()
-                                
-                            }
+                            
                                 
                         }, label: {
-                            Text("Sign In")
+                            Text("Sign Out")
                                 
                                 .padding(40)
                                 .frame(maxWidth: .infinity)
@@ -117,6 +106,9 @@ struct Register: View {
                 Spacer()
             }
         }
+        .sheet(isPresented: $showSignOutSheet) {
+            SignedOutSheet(showSignOut: $showSignOut)
+        }
 
     }
     func emailIsAppropriate() -> Bool {
@@ -126,15 +118,10 @@ struct Register: View {
         }
         return false
     }
-
 }
 
-struct Register_Previews: PreviewProvider {
+struct SignOUT_Previews: PreviewProvider {
     static var previews: some View {
-        Register(showNewScreen: .constant(true), showSignINView: .constant(false))
-        
-        
+        SignOUT(showSignOut: .constant(false))
     }
 }
-
-

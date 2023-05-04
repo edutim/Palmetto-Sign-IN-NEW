@@ -15,8 +15,15 @@ extension Color {
 
 struct ContentView: View {
     
-    @State private var showNewScreen: Bool = false
+    @State private var showRegisterView: Bool = false
+    @State private var showSignINView = false
+    @State private var showSignOutView = false
     @State private var opacity = 1.0
+    
+    @State var showSettings = false
+    @State var settingsPassword = "1234" // This is is the password to get into the settings. Should be only numbers.
+    @State var settingsPasswordText = ""
+    @State var showSettingsAlert = false
     
     var body: some View {
             
@@ -31,9 +38,28 @@ struct ContentView: View {
                     Text("iCarolina Lab")
                         .font(.system(size: 80.0, weight: .bold))
                         .padding(.bottom, 150)
-                    
+                    Text("version 1.0")
+                        .font(.caption)
+                        .onTapGesture() {
+                            showSettingsAlert = true
+                        }
+                        .alert("Settings Password", isPresented: $showSettingsAlert) {
+                            TextField("Enter your name", text: $settingsPasswordText)
+                                .keyboardType(.numberPad)
+                            Button("OK") {
+                                if settingsPassword == settingsPasswordText {
+                                    showSettings = true
+                                    settingsPasswordText = ""
+                                } else {
+                                    
+                                }
+                            }
+                        }
+                        .sheet(isPresented: $showSettings, content: {
+                            SettingsView()
+                        })
                     Button(action: {
-                        showNewScreen.toggle()
+                        showRegisterView.toggle()
 //                        withAnimation {
 //                            opacity -= 0.2
 //                        }
@@ -56,7 +82,7 @@ struct ContentView: View {
                     
                     
                     Button(action: {
-                        
+                        showSignOutView = true
                         
                     }, label: {
                         Text("OUT")
@@ -87,8 +113,20 @@ struct ContentView: View {
 //                    Register()
 //                })
                 ZStack {
-                    if showNewScreen {
-                        Register(showNewScreen: $showNewScreen)
+                    if showRegisterView {
+                        Register(showNewScreen: $showRegisterView, showSignINView: $showSignINView)
+                            .padding(.top, 200)
+                            .transition(.move(edge: .bottom))
+                            .animation(.spring())
+                    }
+                    if showSignINView {
+                        SignIN(showNewScreen: $showSignINView)
+                            .padding(.top, 200)
+                            .transition(.move(edge: .bottom))
+                            .animation(.spring())
+                    }
+                    if showSignOutView {
+                        SignOUT(showSignOut: $showSignOutView)
                             .padding(.top, 200)
                             .transition(.move(edge: .bottom))
                             .animation(.spring())
