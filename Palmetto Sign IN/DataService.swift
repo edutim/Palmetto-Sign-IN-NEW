@@ -63,7 +63,7 @@ class DataService : ObservableObject {
         //people.append(person)
         //saveData()
         
-        let rawString = "\(serverAddress)/newUser/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)"
+        let rawString = "\(serverAddress)/newUser/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)/\(UserDefaults.standard.string(forKey: "campus"))"
         let urlEncoded = rawString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         let url = URL(string: urlEncoded ?? "\(serverAddress)")
         //let url = URL(string: "\(serverAddress)/newUser/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)")
@@ -80,8 +80,11 @@ class DataService : ObservableObject {
     func signIn(person: Person) {
         //people.append(person)
         //saveData()
-        
-        let rawString = "\(serverAddress)/signIn/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)"
+        var campus = "none"
+        if let udCampus = UserDefaults.standard.string(forKey: "campus") {
+            campus = udCampus
+        }
+        let rawString = "\(serverAddress)/signIn/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)/\(campus)"
         let urlEncoded = rawString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         let url = URL(string: urlEncoded ?? "\(serverAddress)")
         //let url = URL(string: "\(serverAddress)/newUser/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)")
@@ -97,8 +100,11 @@ class DataService : ObservableObject {
     func signOut(person: Person) {
         //people.append(person)
         //saveData()
-        
-        let rawString = "\(serverAddress)/signOut/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)"
+        var campus = "none"
+        if let udCampus = UserDefaults.standard.string(forKey: "campus") {
+            campus = udCampus
+        }
+        let rawString = "\(serverAddress)/signOut/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)/\(campus)"
         let urlEncoded = rawString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         let url = URL(string: urlEncoded ?? "\(serverAddress)")
         //let url = URL(string: "\(serverAddress)/newUser/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)")
@@ -117,8 +123,11 @@ class DataService : ObservableObject {
     
     
     func signOut(person: Person) async {
-        print("signout dude")
-        let rawString = "\(serverAddress)/signOut/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)"
+        var campus = "none"
+        if let udCampus = UserDefaults.standard.string(forKey: "campus") {
+            campus = udCampus
+        }
+        let rawString = "\(serverAddress)/signOut/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)/\(campus)"
         let urlEncoded = rawString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         guard let url = URL(string: urlEncoded ?? "\(serverAddress)") else { return }
         var request = URLRequest(url: url)
