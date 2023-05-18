@@ -49,7 +49,7 @@ class DataService : ObservableObject {
             UserDefaults.standard.set(encoded, forKey: "people")
             print("Saved People")
         } else {
-            print("Soemthing went wrong")
+            print("Something went wrong")
         }
     }
     
@@ -63,7 +63,8 @@ class DataService : ObservableObject {
         //people.append(person)
         //saveData()
         
-        let rawString = "\(serverAddress)/newUser/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)/\(UserDefaults.standard.string(forKey: "campus"))"
+        // CAM
+        let rawString = "\(serverAddress)/newUser/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)\(UserDefaults.standard.string(forKey: "campus"))"
         let urlEncoded = rawString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         let url = URL(string: urlEncoded ?? "\(serverAddress)")
         //let url = URL(string: "\(serverAddress)/newUser/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)")
@@ -85,7 +86,13 @@ class DataService : ObservableObject {
         if let udCampus = UserDefaults.standard.string(forKey: "campus") {
             campus = udCampus
         }
+        /*
         let rawString = "\(serverAddress)/signIn/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)/\(campus)"
+         */
+        
+        // CAM
+        let rawString = "\(serverAddress)/signIn/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)/\(campus)"
+
         let urlEncoded = rawString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         let url = URL(string: urlEncoded ?? "\(serverAddress)")
         //let url = URL(string: "\(serverAddress)/newUser/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)")
@@ -106,6 +113,8 @@ class DataService : ObservableObject {
         if let udCampus = UserDefaults.standard.string(forKey: "campus") {
             campus = udCampus
         }
+        
+        // CAM
         let rawString = "\(serverAddress)/signOut/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)/\(campus)"
         let urlEncoded = rawString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         let url = URL(string: urlEncoded ?? "\(serverAddress)")
@@ -130,7 +139,10 @@ class DataService : ObservableObject {
         if let udCampus = UserDefaults.standard.string(forKey: "campus") {
             campus = udCampus
         }
+        
+        // CAM
         let rawString = "\(serverAddress)/signOut/\(person.email)/\(person.firstName)/\(person.lastName)/\(person.role)/\(person.reasonForVisit)/\(campus)"
+        
         let urlEncoded = rawString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         guard let url = URL(string: urlEncoded ?? "\(serverAddress)") else { return }
         var request = URLRequest(url: url)

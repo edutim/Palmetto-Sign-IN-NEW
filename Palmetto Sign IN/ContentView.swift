@@ -33,8 +33,10 @@ struct ContentView: View {
             ZStack {
                 
                 Color.lightGray.ignoresSafeArea()
-                
+                //Spacer()
                 VStack {
+                    
+                 
                     HStack {
                         Spacer()
                         Image(systemName: "gearshape")
@@ -59,10 +61,15 @@ struct ContentView: View {
                                 SettingsView()
                             })
                     }
+                    .padding(20)
                     Spacer()
+                    
                 }
                 
+                .padding(.top,50)
+                
                 VStack(spacing: 0){
+
                     Text("iCarolina Lab")
                         .font(.system(size: 80.0, weight: .bold))
                         .padding(.bottom, 150)
@@ -106,18 +113,21 @@ struct ContentView: View {
                             .padding()
                         
                     })
-                    .padding(.bottom, 200)
+                    .padding(.bottom, 75)
                     Text(campus)
-                        .font(.system(size: 40.0))
+                        .font(.system(size: 30.0))
                     
                     Text(Date.now.formatted(date:.long, time: .omitted))
-                        .font(.largeTitle)
+                        .font(.system(size: 20.0))
                         .foregroundColor(.gray)
+                        
                     
                     //Spacer()
                     
                     
                 }
+                .frame(width: 500, height: 400)
+                //.padding(.top,50)
 //                .sheet(isPresented: $showNewScreen, content: {
 //                    Register()
 //                })

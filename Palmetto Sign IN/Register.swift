@@ -23,24 +23,52 @@ struct Register: View {
         
         ZStack {
             Color.lightGray.ignoresSafeArea()
-            
-            VStack {
+                //.frame(width: 300, height: 800)  // CAM
                 
+            //VStack {
                 
+            Rectangle()
+                .background(.white).opacity(0.1).cornerRadius(20)
+                .frame(width: 800, height: 850)
+                //-------------------------------------
                 VStack(alignment: .leading) {
                     
-                    // EMAIL TEXT FIELD
                     
+                    // EMAIL TEXT FIELD
+
                     TextField("Enter email address", text: $email)
-                        .padding()
+                        .frame(maxWidth: .infinity, minHeight: 70)
+                        .padding(.leading,75)
                         .focused($isFocused)
                         .keyboardType(.emailAddress)
-                        .font(.system(size: 40.0))
+                        .font(.system(size: 35.0))
                         .background(Color.gray.opacity(0.3).cornerRadius(10))
                         .padding(.bottom, 20)
                         .textCase(.lowercase)
                         .autocapitalization(.none)
                         .autocorrectionDisabled()
+                        .background(
+                    
+                    ZStack(alignment: .leading) {
+                        Image(systemName: "envelope")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 35)
+                            .padding(.bottom)
+                            .font(.system(size: 16,weight: .semibold))
+                            .padding(.leading,-370)
+                            .foregroundColor(Color.gray.opacity(0.5))
+                        //
+
+
+                    }
+                    )//.textFieldStyle(RoundedBorderTextFieldStyle())
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                isFocused = true
+                            }
+                        }
+ 
                         
                     
                     HStack {
@@ -56,7 +84,7 @@ struct Register: View {
                                 .background(Color.darkRed.cornerRadius(10))
                                 .foregroundColor(.white).fontWeight(.bold)
                                 .font(.largeTitle)
-                                .shadow(radius: 10)
+                                                            .shadow(radius: 10)
                     })
                         
                         Button(action: {
@@ -66,14 +94,24 @@ struct Register: View {
                                     if foundPerson.email == "" {
                                         print("No user found")
                                         //No person was found so create a new Person with only an email address
+                                        
+                                        // CAM
                                         let newPerson = Person(firstName: "", lastName: "", email: email, username: "", role: "", reasonForVisit: "", date: Date())
+                                        
+                              
+                                        
                                         dataService.currentPerson = newPerson
                                         showNewScreen = false
                                         showSignINView = true
                                     } else {
                                         print("User Found")
                                         //Person found so create a new person with the ReturnedPerson object
+                                        
+                                        // CAM
+                                        
                                         let newPerson = Person(firstName: person?.firstName ?? "", lastName: person?.lastName ?? "", email: person?.email ?? "", username: person?.username ?? "", role: person?.role ?? "", reasonForVisit: person?.reasonForVisit ?? "", date: Date())
+                                        //, active:person?.active ?? true)
+                                        
                                         dataService.currentPerson = newPerson
                                         showNewScreen = false
                                         showSignINView = true
@@ -94,32 +132,38 @@ struct Register: View {
                                 .background(Color.darkGreen.cornerRadius(10))
                                 .foregroundColor(.white).fontWeight(.bold)
                                 .font(.largeTitle)
+                                //.font(.system(size: 40))
                                 .shadow(radius: 10)
                     })
                     
                     }
-                    .padding(.vertical, 20)
-                    Spacer()
+                    //.padding(.vertical, 20)
+                    //Spacer()
                  
                        
                     
                 }
+
                 .padding(30)
-                .padding(.top, 200)
+                //.padding(.bottom, 200)
                 Text(campus)
-                    .font(.system(size: 40.0))
+                    .font(.system(size: 30.0))
+                    .padding(.top,400)
 
                 Text(Date.now.formatted(date:.long, time: .omitted))
-                    .font(.largeTitle)
+                .font(.system(size: 20.0))
                     .foregroundColor(.gray)
+                    .padding(.top,500)
 
 
 
-                Spacer()
-            }
+                //Spacer()
+            //}
+           
         }
 
     }
+    
     func emailIsAppropriate() -> Bool {
         // validate email
         if email.count >= 6 {
@@ -137,5 +181,6 @@ struct Register_Previews: PreviewProvider {
         
     }
 }
+
 
 

@@ -10,6 +10,7 @@ import SwiftUI
 struct SignOUT: View {
     @Binding var showSignOut: Bool
     @State private var email: String = ""
+    @FocusState private var isFocused: Bool
     @EnvironmentObject var dataService: DataService
     
     @State private var showSignOutSheet = false
@@ -23,21 +24,45 @@ struct SignOUT: View {
             
             VStack {
                 Spacer()
+      
                 
                 VStack(alignment: .leading) {
                     
                     // EMAIL TEXT FIELD
                     
                     TextField("Enter email address", text: $email)
-                        .padding()
+                        .frame(maxWidth: .infinity, minHeight: 70)
+                        .padding(.leading,75)
+                        .focused($isFocused)
                         .keyboardType(.emailAddress)
-                        .font(.system(size: 40.0))
+                        .font(.system(size: 35.0))
                         .background(Color.gray.opacity(0.3).cornerRadius(10))
                         .padding(.bottom, 20)
                         .textCase(.lowercase)
                         .autocapitalization(.none)
                         .autocorrectionDisabled()
+                        .background(
                     
+                    ZStack(alignment: .leading) {
+                        Image(systemName: "envelope")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 35)
+                            .padding(.bottom)
+                            .font(.system(size: 16,weight: .semibold))
+                            .padding(.leading,-370)
+                            .foregroundColor(Color.gray.opacity(0.5))
+                        //
+
+
+                    }
+                    )//.textFieldStyle(RoundedBorderTextFieldStyle())
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                isFocused = true
+                            }
+                        }
+
                     
                     HStack {
                         
@@ -55,8 +80,9 @@ struct SignOUT: View {
                                 .shadow(radius: 10)
                         })
                         
+                        
                         Button(action: {
-                            
+                            print($email)
                             Task {
                                 let person = try await dataService.findPersonWith(email: email)
                                 if let foundPerson = person {
@@ -67,7 +93,10 @@ struct SignOUT: View {
                                     } else {
                                         print("User Found")
                                         //Person found so create a new person with the ReturnedPerson object
+                                        // CAM - added active bool 5/5/23
+                                        
                                         let newPerson = Person(firstName: foundPerson.firstName, lastName: foundPerson.lastName, email: foundPerson.email, username: foundPerson.username, role: foundPerson.role, reasonForVisit: foundPerson.reasonForVisit, date: Date())
+                                        //, active:foundPerson.active)
                                         
                                         await dataService.signOut(person: newPerson)
                                         showSignOutSheet = true
@@ -96,21 +125,32 @@ struct SignOUT: View {
                     
                 }
                 .padding(30)
-                
-                Spacer()
+                //.padding(.bottom, 75)
                 Text(campus)
-                    .font(.system(size: 40.0))
-                
+                    .font(.system(size: 30.0))
+                    
                 Text(Date.now.formatted(date:.long, time: .omitted))
-                    .font(.largeTitle)
+                    .font(.system(size: 25.0))
                     .foregroundColor(.gray)
+                    
+               //.padding(30)
+
+                Spacer()
+//                Text(campus)
+//                    .font(.system(size: 40.0))
+//
+//                Text(Date.now.formatted(date:.long, time: .omitted))
+//                    .font(.largeTitle)
+//                    .foregroundColor(.gray)
                 
                 
                 
             }
         }
         .sheet(isPresented: $showSignOutSheet) {
+            
             SignedOutSheet(showSignOut: $showSignOut)
+            
         }
         
     }

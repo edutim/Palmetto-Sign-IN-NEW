@@ -90,7 +90,8 @@ struct SignIN: View {
                         //.frame(maxWidth: .infinity)
                             .background(Color.darkRed.cornerRadius(10))
                             .foregroundColor(.white).fontWeight(.bold)
-                            .font(.largeTitle)
+                            //.font(.largeTitle)
+                            .font(.system(size: 40))
                             .shadow(radius: 10)
                     })
                     

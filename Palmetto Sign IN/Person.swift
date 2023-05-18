@@ -16,6 +16,7 @@ struct Person: Codable {
     var role: String
     var reasonForVisit: String
     var date: Date
+    //var active: Bool   // added CAM 5/5/23
 }
 
 struct ReturnedPerson: Codable {
@@ -25,4 +26,5 @@ struct ReturnedPerson: Codable {
     var username: String
     var role: String
     var reasonForVisit: String
+    //var active: Bool // added CAM 5/5/23
 }
