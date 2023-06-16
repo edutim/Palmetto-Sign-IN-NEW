@@ -78,6 +78,30 @@ class DataService : ObservableObject {
         
     }
     
+    func checkIfUserIsSignedIn(person: Person) async -> Bool {
+        let rawString = "\(serverAddress)/isUserSignedIn/\(person.email)"
+
+        let urlEncoded = rawString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let url = URL(string: urlEncoded ?? "\(serverAddress)")
+        
+        var response = ""
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url!)
+            response = String(data: data, encoding: .utf8) ?? "false"
+           
+        } catch {
+            print(error.localizedDescription)
+            
+        }
+        if response == "true" {
+            return true
+        } else {
+            return false
+        }
+        
+       
+    }
+    
     func signIn(person: Person) {
         //people.append(person)
         //saveData()

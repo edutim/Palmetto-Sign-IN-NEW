@@ -124,20 +124,20 @@ struct ContentView: View {
                 VStack(spacing: 0) {
 
                     VStack {
-                        HStack {
-                            Image("salke1")
+                        VStack(spacing: 0) {
+                            Image(campus)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 150, height: 130)
-                            //.opacity(0.3)
-                                
+                            
+                            
                             
                             Text("iCarolina Lab")
                                 .foregroundColor(.black)
                                 .font(.system(size: 75))
                                 .fontWeight(.heavy)
-                                
                         }
+                        
                         
                         Text(campus)
                             .font(.system(size: 25.0))
@@ -147,6 +147,7 @@ struct ContentView: View {
                            
                     }
                     .frame(maxWidth: .infinity)
+                    .padding(.bottom)
                     Button(action: {
                         showRegisterView.toggle()
 //                        withAnimation {

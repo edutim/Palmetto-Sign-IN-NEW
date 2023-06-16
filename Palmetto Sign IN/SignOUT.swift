@@ -27,10 +27,19 @@ struct SignOUT: View {
       
                 
                 VStack() {
-                    Text("iCarolina Lab")
-                        .foregroundColor(.black)
-                        .font(.system(size: 75))
-                        .fontWeight(.heavy)
+                    VStack {
+                        Text("iCarolina Lab")
+                            .foregroundColor(.black)
+                            .font(.system(size: 75))
+                            .fontWeight(.heavy)
+                        Text(campus)
+                            .font(.system(size: 30.0))
+                            
+                        Text(Date.now.formatted(date:.long, time: .omitted))
+                            .font(.system(size: 25.0))
+                            .foregroundColor(.gray)
+                    }
+                    .padding(.bottom)
                     // EMAIL TEXT FIELD
                     
                     TextField("Enter email address", text: $email)
@@ -98,7 +107,7 @@ struct SignOUT: View {
                                         //Person found so create a new person with the ReturnedPerson object
                                         // CAM - added active bool 5/5/23
                                         
-                                        let newPerson = Person(firstName: foundPerson.firstName, lastName: foundPerson.lastName, email: foundPerson.email, username: foundPerson.username, role: foundPerson.role, reasonForVisit: foundPerson.reasonForVisit, date: Date())
+                                        let newPerson = Person(firstName: foundPerson.firstName, lastName: foundPerson.lastName, email: foundPerson.email, username: foundPerson.username, role: foundPerson.role, reasonForVisit: foundPerson.reasonForVisit, campus: campus, date: Date())
                                         //, active:foundPerson.active)
                                         
                                         await dataService.signOut(person: newPerson)
@@ -129,12 +138,7 @@ struct SignOUT: View {
                 }
                 .padding(30)
                 //.padding(.bottom, 75)
-                Text(campus)
-                    .font(.system(size: 30.0))
-                    
-                Text(Date.now.formatted(date:.long, time: .omitted))
-                    .font(.system(size: 25.0))
-                    .foregroundColor(.gray)
+                
                     
                //.padding(30)
 

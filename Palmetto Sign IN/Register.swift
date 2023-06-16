@@ -17,7 +17,7 @@ struct Register: View {
     
     @EnvironmentObject var dataService: DataService
     @AppStorage("campus") var campus: String = "Campus"
-
+    @State private var showLoggedInAlert = false
 
     var body: some View {
         
@@ -41,11 +41,20 @@ struct Register: View {
 //                    , alignment: .top
 //                )
                 VStack() {
-
-                    Text("iCarolina Lab")
-                        .foregroundColor(.black)
-                        .font(.system(size: 75))
-                        .fontWeight(.heavy)
+                    VStack {
+                        Text("iCarolina Lab")
+                            .foregroundColor(.black)
+                            .font(.system(size: 75))
+                            .fontWeight(.heavy)
+                        Text(campus)
+                            .font(.system(size: 30.0))
+                        
+                        
+                        Text(Date.now.formatted(date:.long, time: .omitted))
+                            .font(.system(size: 20.0))
+                            .foregroundColor(.gray)
+                    }
+                    .padding(.bottom)
                     // EMAIL TEXT FIELD
 
                     TextField("Enter email address", text: $email)
@@ -103,33 +112,44 @@ struct Register: View {
                         Button(action: {
                             Task {
                                 let person = try await dataService.findPersonWith(email: email)
-                                if let foundPerson = person {
-                                    if foundPerson.email == "" {
-                                        print("No user found")
-                                        //No person was found so create a new Person with only an email address
-                                        
-                                        // CAM
-                                        let newPerson = Person(firstName: "", lastName: "", email: email, username: "", role: "", reasonForVisit: "", date: Date())
-                                        
-                              
-                                        
-                                        dataService.currentPerson = newPerson
-                                        showNewScreen = false
-                                        showSignINView = true
+                                
+                                Task {
+                                    let testPerson = Person(firstName: person?.firstName ?? "", lastName: person?.lastName ?? "", email: person?.email ?? "", username: person?.username ?? "", role: person?.role ?? "", reasonForVisit: person?.reasonForVisit ?? "", campus: campus, date: Date())
+                                    let status = await dataService.checkIfUserIsSignedIn(person: testPerson)
+                                    if status {
+                                        showLoggedInAlert = true
                                     } else {
-                                        print("User Found")
-                                        //Person found so create a new person with the ReturnedPerson object
-                                        
-                                        // CAM
-                                        
-                                        let newPerson = Person(firstName: person?.firstName ?? "", lastName: person?.lastName ?? "", email: person?.email ?? "", username: person?.username ?? "", role: person?.role ?? "", reasonForVisit: person?.reasonForVisit ?? "", date: Date())
-                                        //, active:person?.active ?? true)
-                                        
-                                        dataService.currentPerson = newPerson
-                                        showNewScreen = false
-                                        showSignINView = true
+                                        if let foundPerson = person {
+                                            if foundPerson.email == "" {
+                                                print("No user found")
+                                                //No person was found so create a new Person with only an email address
+                                                
+                                                // CAM
+                                                let newPerson = Person(firstName: "", lastName: "", email: email, username: "", role: "", reasonForVisit: "", campus: campus, date: Date())
+                                                
+                                      
+                                                
+                                                dataService.currentPerson = newPerson
+                                                showNewScreen = false
+                                                showSignINView = true
+                                            } else {
+                                                print("User Found")
+                                                //Person found so create a new person with the ReturnedPerson object
+                                                
+                                                // CAM
+                                                
+                                                let newPerson = Person(firstName: person?.firstName ?? "", lastName: person?.lastName ?? "", email: person?.email ?? "", username: person?.username ?? "", role: person?.role ?? "", reasonForVisit: person?.reasonForVisit ?? "", campus: campus, date: Date())
+                                                //, active:person?.active ?? true)
+                                                
+                                                dataService.currentPerson = newPerson
+                                                showNewScreen = false
+                                                showSignINView = true
+                                            }
+                                        }
                                     }
                                 }
+                                
+                              
                                 
                             }
                             if emailIsAppropriate() {
@@ -148,6 +168,11 @@ struct Register: View {
                                 //.font(.system(size: 40))
                                 .shadow(radius: 10)
                     })
+                        .alert("You are already signed in. Please log out before signing in.", isPresented: $showLoggedInAlert) {
+                                    Button("OK", role: .cancel) {
+                                        showNewScreen = false
+                                    }
+                                }
                     
                     }
                     //.padding(.vertical, 20)
@@ -159,14 +184,8 @@ struct Register: View {
 
                 .padding(50)
                 //.padding(.bottom, 200)
-                Text(campus)
-                    .font(.system(size: 30.0))
-                    .padding(.top,400)
-
-                Text(Date.now.formatted(date:.long, time: .omitted))
-                .font(.system(size: 20.0))
-                    .foregroundColor(.gray)
-                    .padding(.top,465)
+                
+                    
 
 
 
