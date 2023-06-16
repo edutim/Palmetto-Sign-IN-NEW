@@ -40,31 +40,32 @@ struct ContentView: View {
                // -------------------------------------
                 .overlay(
                     Group {
-                        HStack {
-                            Image("salke1")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 150, height: 130)
-                                //.opacity(0.3)
-                                .padding(.top,60)
-                            
-                            Text("iCarolina Lab")
-                                .padding(.top,70)
-                                .foregroundColor(.black)
-                                .font(.system(size: 75))
-                                .fontWeight(.heavy)
-                                .padding(.bottom,40)
-                        }
- 
-                        Text(campus)
-                            .font(.system(size: 25.0))
-                            .padding(.top,135)
-                            .padding(.leading,-30)
-                        Text(Date.now.formatted(date:.long, time: .omitted))
-                            .font(.system(size: 20.0))
-                            .foregroundColor(.gray)
-                            .padding(.top,195)
-
+//                        VStack {
+//                            HStack {
+//                                Image("salke1")
+//                                    .resizable()
+//                                    .scaledToFit()
+//                                    .frame(width: 150, height: 130)
+//                                //.opacity(0.3)
+//                                    .padding(.top,60)
+//
+//                                Text("iCarolina Lab")
+//                                    .padding(.top,70)
+//                                    .foregroundColor(.black)
+//                                    .font(.system(size: 75))
+//                                    .fontWeight(.heavy)
+//                                    .padding(.bottom,40)
+//                            }
+//
+//                            Text(campus)
+//                                .font(.system(size: 25.0))
+//                                .padding(.top,135)
+//                                .padding(.leading,-30)
+//                            Text(Date.now.formatted(date:.long, time: .omitted))
+//                                .font(.system(size: 20.0))
+//                                .foregroundColor(.gray)
+//                                .padding(.top,195)
+//                        }
 
                     }    , alignment: .top)
                     
@@ -120,9 +121,32 @@ struct ContentView: View {
                 
                 .padding(.top,50)
                 
-                VStack(spacing: 0){
+                VStack(spacing: 0) {
 
-                    
+                    VStack {
+                        HStack {
+                            Image("salke1")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 150, height: 130)
+                            //.opacity(0.3)
+                                
+                            
+                            Text("iCarolina Lab")
+                                .foregroundColor(.black)
+                                .font(.system(size: 75))
+                                .fontWeight(.heavy)
+                                
+                        }
+                        
+                        Text(campus)
+                            .font(.system(size: 25.0))
+                        Text(Date.now.formatted(date:.long, time: .omitted))
+                            .font(.system(size: 20.0))
+                            .foregroundColor(.gray)
+                           
+                    }
+                    .frame(maxWidth: .infinity)
                     Button(action: {
                         showRegisterView.toggle()
 //                        withAnimation {
@@ -149,7 +173,7 @@ struct ContentView: View {
                     
                     
                     Button(action: {
-                        showSignOutView = true
+                        showSignOutView.toggle()
                         
                     }, label: {
                         Text("OUT")
@@ -177,33 +201,42 @@ struct ContentView: View {
                     
                     
                 }
-                .frame(width: 500, height: 400)
+                //.frame(width: 500, height: 400)
                 //.padding(.top,50)
 //                .sheet(isPresented: $showNewScreen, content: {
 //                    Register()
 //                })
-                ZStack {
-                    if showRegisterView {
-                        Register(showNewScreen: $showRegisterView, showSignINView: $showSignINView)
-                            .padding(.top, 200)
-                            .transition(.move(edge: .bottom))
-                            .animation(.spring())
-                    }
-                    if showSignINView {
-                        SignIN(showNewScreen: $showSignINView)
-                            .padding(.top, 200)
-                            .transition(.move(edge: .bottom))
-                            .animation(.spring())
-                    }
-                    if showSignOutView {
-                        SignOUT(showSignOut: $showSignOutView)
-                            .padding(.top, 200)
-                            .transition(.move(edge: .bottom))
-                            .animation(.spring())
-                    }
-                }
-                .zIndex(2.0)
+//                ZStack {
+//                    if showRegisterView {
+//                        Register(showNewScreen: $showRegisterView, showSignINView: $showSignINView)
+//                            .padding(.top, 200)
+//                            .transition(.move(edge: .bottom))
+//                            .animation(.spring())
+//                    }
+//                    if showSignINView {
+//                        SignIN(showNewScreen: $showSignINView)
+//                            .padding(.top, 200)
+//                            .transition(.move(edge: .bottom))
+//                            .animation(.spring())
+//                    }
+//                    if showSignOutView {
+//                        SignOUT(showSignOut: $showSignOutView)
+//                            .padding(.top, 200)
+//                            .transition(.move(edge: .bottom))
+//                            .animation(.spring())
+//                    }
+//                }
+//                .zIndex(2.0)
 
+            }
+            .fullScreenCover(isPresented: $showRegisterView) {
+                Register(showNewScreen: $showRegisterView, showSignINView: $showSignINView)
+            }
+            .fullScreenCover(isPresented: $showSignINView) {
+                SignIN(showNewScreen: $showSignINView)
+            }
+            .fullScreenCover(isPresented: $showSignOutView) {
+                SignOUT(showSignOut: $showSignOutView)
             }
         
         }

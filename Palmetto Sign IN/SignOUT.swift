@@ -26,8 +26,11 @@ struct SignOUT: View {
                 Spacer()
       
                 
-                VStack(alignment: .leading) {
-                    
+                VStack() {
+                    Text("iCarolina Lab")
+                        .foregroundColor(.black)
+                        .font(.system(size: 75))
+                        .fontWeight(.heavy)
                     // EMAIL TEXT FIELD
                     
                     TextField("Enter email address", text: $email)

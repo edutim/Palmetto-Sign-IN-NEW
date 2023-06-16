@@ -32,17 +32,20 @@ struct Register: View {
                 .background(.white).opacity(0.1).cornerRadius(20)
                 .frame(width: 770, height: 1200)
                // -------------------------------------
-                .overlay(
+//                .overlay(
+//                    Text("iCarolina Lab")
+//                        .padding(.top,350)
+//                        .foregroundColor(.black)
+//                        .font(.system(size: 75))
+//                        .fontWeight(.heavy)
+//                    , alignment: .top
+//                )
+                VStack() {
+
                     Text("iCarolina Lab")
-                        .padding(.top,350)
                         .foregroundColor(.black)
                         .font(.system(size: 75))
                         .fontWeight(.heavy)
-                    , alignment: .top
-                )
-                VStack(alignment: .leading) {
-
-                    
                     // EMAIL TEXT FIELD
 
                     TextField("Enter email address", text: $email)
