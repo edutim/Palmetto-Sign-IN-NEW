@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4ABAD5DA2A3CFD30006680A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4ABAD5D92A3CFD30006680A4 /* Assets.xcassets */; };
 		4AE869A42A040691004D7015 /* SignOUT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE869A32A040691004D7015 /* SignOUT.swift */; };
 		4AE869A62A040AAE004D7015 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE869A52A040AAE004D7015 /* SettingsView.swift */; };
 		4AE869AB2A042A1D004D7015 /* SignedOutSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE869AA2A042A1D004D7015 /* SignedOutSheet.swift */; };
@@ -26,7 +25,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4ABAD5D92A3CFD30006680A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4AE869A32A040691004D7015 /* SignOUT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOUT.swift; sourceTree = "<group>"; };
 		4AE869A52A040AAE004D7015 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		4AE869A72A040CA9004D7015 /* Palmetto-Sign-IN-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Palmetto-Sign-IN-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -81,7 +79,6 @@
 				4AE869A72A040CA9004D7015 /* Palmetto-Sign-IN-Info.plist */,
 				94CBEC3D29A98CB200531660 /* Palmetto_Sign_INApp.swift */,
 				94CBEC3F29A98CB200531660 /* ContentView.swift */,
-				4ABAD5D92A3CFD30006680A4 /* Assets.xcassets */,
 				94CBEC4B29AA6A2400531660 /* Register.swift */,
 				94CBEC4F29AA985D00531660 /* SignIN-REVISED.swift */,
 				4AE869A32A040691004D7015 /* SignOUT.swift */,
@@ -167,7 +164,6 @@
 				945A81932A07250B004925E3 /* Welcome.mp3 in Resources */,
 				94CBEC4229A98CB400531660 /* Assets.xcassets in Resources */,
 				945A818F2A06EF32004925E3 /* ThankYou.mp3 in Resources */,
-				4ABAD5DA2A3CFD30006680A4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
