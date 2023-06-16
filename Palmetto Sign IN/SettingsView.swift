@@ -13,17 +13,21 @@ struct SettingsView: View {
     @State var serverTestStatus = " "
     @Environment(\.dismiss) private var dismiss
     
-    @AppStorage("campus") var campus: String = "Campus"
+    @AppStorage("campus") var campus: String = "Lancaster"
+    
+    @State var locations: [String] = ["Allendale", "Lancaster", "Sumter", "Walterboro", "Union"]
     
     var body: some View {
-        Text("Enter the server address")
-            .font(.largeTitle)
-        Text("Example: http://ipaddress or http://hostname")
-            .font(.body)
-        Text("HTTPS is not supported.")
-        Divider()
-            .padding()
-       
+        VStack {
+            Text("Settings")
+                .font(.largeTitle)
+            Divider()
+            Text("Enter the address of the server.")
+            Text("Example: http://ipaddress or http://hostname")
+                .font(.body)
+            Text("HTTPS is not supported.")
+                .padding()
+            
             VStack {
                 TextField("Server address", text: $serverAddress)
                     .textFieldStyle(.roundedBorder)
@@ -58,19 +62,25 @@ struct SettingsView: View {
                     }
                     Text(serverTestStatus)
                 }
+                Divider()
+                Text("Choose Location")
+                Picker("Location", selection: $campus) {
+                    ForEach(locations, id: \.self) { item in
+                        Text(item)
+                    }
+                }
                 
-                TextField("Enter Campus Name", text: $campus)
             }
             .padding()
-                    
-        Divider()
-            .padding()
-        Button("Save") {
-            DataService.shared.setAddress(baseURL: serverAddress)
-            dismiss()
+            
+            Divider()
+                .padding()
+            Button("Save") {
+                DataService.shared.setAddress(baseURL: serverAddress)
+                dismiss()
+            }
+            .buttonStyle(.borderedProminent)
         }
-        .buttonStyle(.borderedProminent)
-        
     }
 }
 
