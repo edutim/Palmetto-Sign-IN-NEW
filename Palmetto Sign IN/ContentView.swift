@@ -28,12 +28,64 @@ struct ContentView: View {
     @AppStorage("campus") var campus: String = "Campus"
     
     var body: some View {
-            
+        // CAM - added rectangle 5/7/23
+
+
             
             ZStack {
+                Rectangle()
+                .background(.white).opacity(0.1).cornerRadius(20)
+                .frame(width: 770, height: 1200)
+                .shadow(radius: 10)
+               // -------------------------------------
+                .overlay(
+                    Group {
+                        HStack {
+                            Image("salke1")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 150, height: 130)
+                                //.opacity(0.3)
+                                .padding(.top,60)
+                            
+                            Text("iCarolina Lab")
+                                .padding(.top,70)
+                                .foregroundColor(.black)
+                                .font(.system(size: 75))
+                                .fontWeight(.heavy)
+                                .padding(.bottom,40)
+                        }
+ 
+                        Text(campus)
+                            .font(.system(size: 25.0))
+                            .padding(.top,135)
+                            .padding(.leading,-30)
+                        Text(Date.now.formatted(date:.long, time: .omitted))
+                            .font(.system(size: 20.0))
+                            .foregroundColor(.gray)
+                            .padding(.top,195)
+
+
+                    }    , alignment: .top)
+                    
                 
-                Color.lightGray.ignoresSafeArea()
-                //Spacer()
+//                Rectangle()
+//                    .background(.white).opacity(0.1).cornerRadius(20)
+//                    .frame(width: 770, height: 1050)
+//                    //-------------------------------------
+//
+//                        .overlay(
+//                            Text("iCarolina Lab")
+//                                .padding(70)
+//                                .foregroundColor(.black)
+//                                .font(.system(size: 75))
+//                                .fontWeight(.heavy)
+//                            , alignment: .top
+//                        )
+
+
+                
+
                 VStack {
                     
                  
@@ -61,7 +113,7 @@ struct ContentView: View {
                                 SettingsView()
                             })
                     }
-                    .padding(20)
+                    .padding(30)
                     Spacer()
                     
                 }
@@ -70,9 +122,6 @@ struct ContentView: View {
                 
                 VStack(spacing: 0){
 
-                    Text("iCarolina Lab")
-                        .font(.system(size: 80.0, weight: .bold))
-                        .padding(.bottom, 150)
                     
                     Button(action: {
                         showRegisterView.toggle()
@@ -82,6 +131,7 @@ struct ContentView: View {
                         
                     }, label: {
                         Text("IN")
+                          
                             .frame(width:250, height: 250)
                             .foregroundColor(.white).shadow(radius:5)
                             .font(.system(size: 86.0, weight: .bold))
@@ -94,6 +144,7 @@ struct ContentView: View {
                             .padding(.bottom, 50)
                         
                     })
+                    .padding(.top,50)
 
                     
                     
@@ -113,13 +164,13 @@ struct ContentView: View {
                             .padding()
                         
                     })
-                    .padding(.bottom, 75)
-                    Text(campus)
-                        .font(.system(size: 30.0))
-                    
-                    Text(Date.now.formatted(date:.long, time: .omitted))
-                        .font(.system(size: 20.0))
-                        .foregroundColor(.gray)
+                    .padding(.bottom, 50)
+//                    Text(campus)
+//                        .font(.system(size: 30.0))
+//
+//                    Text(Date.now.formatted(date:.long, time: .omitted))
+//                        .font(.system(size: 20.0))
+//                        .foregroundColor(.gray)
                         
                     
                     //Spacer()

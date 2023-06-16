@@ -22,17 +22,26 @@ struct Register: View {
     var body: some View {
         
         ZStack {
-            Color.lightGray.ignoresSafeArea()
+            Color.white //.ignoresSafeArea()
                 //.frame(width: 300, height: 800)  // CAM
                 
             //VStack {
                 
+
             Rectangle()
                 .background(.white).opacity(0.1).cornerRadius(20)
-                .frame(width: 800, height: 850)
-                //-------------------------------------
+                .frame(width: 770, height: 1200)
+               // -------------------------------------
+                .overlay(
+                    Text("iCarolina Lab")
+                        .padding(.top,350)
+                        .foregroundColor(.black)
+                        .font(.system(size: 75))
+                        .fontWeight(.heavy)
+                    , alignment: .top
+                )
                 VStack(alignment: .leading) {
-                    
+
                     
                     // EMAIL TEXT FIELD
 
@@ -49,14 +58,15 @@ struct Register: View {
                         .autocorrectionDisabled()
                         .background(
                     
-                    ZStack(alignment: .leading) {
-                        Image(systemName: "envelope")
+                    
+                        ZStack(alignment: .trailing) {
+                            Image(systemName: "envelope")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 35)
                             .padding(.bottom)
                             .font(.system(size: 16,weight: .semibold))
-                            .padding(.leading,-370)
+                            .padding(.leading,-335)
                             .foregroundColor(Color.gray.opacity(0.5))
                         //
 
@@ -144,7 +154,7 @@ struct Register: View {
                     
                 }
 
-                .padding(30)
+                .padding(50)
                 //.padding(.bottom, 200)
                 Text(campus)
                     .font(.system(size: 30.0))
@@ -153,7 +163,7 @@ struct Register: View {
                 Text(Date.now.formatted(date:.long, time: .omitted))
                 .font(.system(size: 20.0))
                     .foregroundColor(.gray)
-                    .padding(.top,500)
+                    .padding(.top,465)
 
 
 
