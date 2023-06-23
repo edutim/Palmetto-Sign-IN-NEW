@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A4C6F4D2A45E6F90018CCD2 /* SignIN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4C6F4C2A45E6F90018CCD2 /* SignIN.swift */; };
 		4AE869A42A040691004D7015 /* SignOUT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE869A32A040691004D7015 /* SignOUT.swift */; };
 		4AE869A62A040AAE004D7015 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE869A52A040AAE004D7015 /* SettingsView.swift */; };
 		4AE869AB2A042A1D004D7015 /* SignedOutSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE869AA2A042A1D004D7015 /* SignedOutSheet.swift */; };
@@ -18,13 +19,13 @@
 		94CBEC4229A98CB400531660 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CBEC4129A98CB400531660 /* Assets.xcassets */; };
 		94CBEC4529A98CB400531660 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CBEC4429A98CB400531660 /* Preview Assets.xcassets */; };
 		94CBEC4C29AA6A2400531660 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CBEC4B29AA6A2400531660 /* Register.swift */; };
-		94CBEC5029AA985D00531660 /* SignIN-REVISED.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CBEC4F29AA985D00531660 /* SignIN-REVISED.swift */; };
 		94CBEC5229AAE00800531660 /* PickerSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CBEC5129AAE00800531660 /* PickerSample.swift */; };
 		94E8192A2A03F7F20044B9D4 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E819292A03F7F20044B9D4 /* Person.swift */; };
 		94E8192C2A03F8000044B9D4 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E8192B2A03F8000044B9D4 /* DataService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A4C6F4C2A45E6F90018CCD2 /* SignIN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignIN.swift; sourceTree = "<group>"; };
 		4AE869A32A040691004D7015 /* SignOUT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOUT.swift; sourceTree = "<group>"; };
 		4AE869A52A040AAE004D7015 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		4AE869A72A040CA9004D7015 /* Palmetto-Sign-IN-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Palmetto-Sign-IN-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -38,7 +39,6 @@
 		94CBEC4129A98CB400531660 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		94CBEC4429A98CB400531660 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		94CBEC4B29AA6A2400531660 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
-		94CBEC4F29AA985D00531660 /* SignIN-REVISED.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SignIN-REVISED.swift"; sourceTree = "<group>"; };
 		94CBEC5129AAE00800531660 /* PickerSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerSample.swift; sourceTree = "<group>"; };
 		94E819292A03F7F20044B9D4 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		94E8192B2A03F8000044B9D4 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 				94CBEC3D29A98CB200531660 /* Palmetto_Sign_INApp.swift */,
 				94CBEC3F29A98CB200531660 /* ContentView.swift */,
 				94CBEC4B29AA6A2400531660 /* Register.swift */,
-				94CBEC4F29AA985D00531660 /* SignIN-REVISED.swift */,
+				4A4C6F4C2A45E6F90018CCD2 /* SignIN.swift */,
 				4AE869A32A040691004D7015 /* SignOUT.swift */,
 				4AE869AA2A042A1D004D7015 /* SignedOutSheet.swift */,
 				4AE869AC2A043CDE004D7015 /* SignedInSheet.swift */,
@@ -179,8 +179,8 @@
 				94CBEC4C29AA6A2400531660 /* Register.swift in Sources */,
 				4AE869A62A040AAE004D7015 /* SettingsView.swift in Sources */,
 				4AE869AB2A042A1D004D7015 /* SignedOutSheet.swift in Sources */,
-				94CBEC5029AA985D00531660 /* SignIN-REVISED.swift in Sources */,
 				94CBEC4029A98CB200531660 /* ContentView.swift in Sources */,
+				4A4C6F4D2A45E6F90018CCD2 /* SignIN.swift in Sources */,
 				94CBEC5229AAE00800531660 /* PickerSample.swift in Sources */,
 				4AE869AD2A043CDE004D7015 /* SignedInSheet.swift in Sources */,
 				94CBEC3E29A98CB200531660 /* Palmetto_Sign_INApp.swift in Sources */,
