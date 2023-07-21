@@ -111,6 +111,10 @@ struct SignOUT: View {
                                         //, active:foundPerson.active)
                                         
                                         await dataService.signOut(person: newPerson)
+                                        DispatchQueue.main.async {
+                                            
+                                            dataService.currentPerson = newPerson
+                                        }
                                         showSignOutSheet = true
                                     }
                                 }

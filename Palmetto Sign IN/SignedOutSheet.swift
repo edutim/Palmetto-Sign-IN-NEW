@@ -109,6 +109,7 @@ struct SignedOutSheet: View {
             })
             
             .onAppear() {
+                
                 let sound = Bundle.main.path(forResource: "ThankYou", ofType: "mp3")
                 self.audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!))
                 self.audioPlayer.play()
